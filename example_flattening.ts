@@ -1,7 +1,7 @@
 import { EMPTY, Observable, of } from 'rxjs';
 import { concatMap, switchMap, mergeMap, catchError } from 'rxjs/operators';
 
-const letters$ = new Observable<string>((subscriber) => {
+const observable$ = new Observable<string>((subscriber) => {
   setTimeout(() => {
     subscriber.next('A');
   }, 1000);
@@ -11,27 +11,32 @@ const letters$ = new Observable<string>((subscriber) => {
   }, 2000);
 });
 
-function getNumberSeries$(letter: string): Observable<string> {
+function getFruits$(letter: string): Observable<string> {
   return new Observable<string>((subscriber) => {
 
-    const fruits = ['Apple', 'Pear']
+    const fruits = {'A':'Apple', 'B':'Pear'};
 
     let v = 0;
     const intervalId = setInterval(() => {
       v++;
-      subscriber.next(letter + v);
+      subscriber.next(fruits[letter] + v);
       if (v == 5) {
         subscriber.complete();
       }
     }, 350);
+
     return () => {
-      console.log('Teardown', letter);
-      clearInterval(intervalId);
+      console.log('Teardown', fruits[letter]);
+      clearInterval(intervalId); 
     };
+    
   });
 }
 
-letters$.pipe(concatMap((letter) => getNumberSeries$(letter))).subscribe({
+observable$.pipe(
+  concatMap((letter) => getFruits$(letter))
+)
+.subscribe({
   next: (value) => console.log('Got value:', value),
   complete: () => console.log('Completed'),
   error: (err) => console.error('Got error:', err),
