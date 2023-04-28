@@ -13,6 +13,9 @@ const letters$ = new Observable<string>((subscriber) => {
 
 function getNumberSeries$(letter: string): Observable<string> {
   return new Observable<string>((subscriber) => {
+
+    const fruits = ['Apple', 'Pear']
+
     let v = 0;
     const intervalId = setInterval(() => {
       v++;
