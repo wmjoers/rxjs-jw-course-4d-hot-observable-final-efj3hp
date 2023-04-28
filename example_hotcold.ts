@@ -9,7 +9,6 @@ const colsObservable$ = new Observable<number>(subscriber => {
   }, 1000);
 });
 
-
 const hotObservable$ = new Observable<string>(subscriber => {
   const intervalId = setInterval(() => {
     subscriber.next(new Date().toLocaleTimeString());
