@@ -1,4 +1,4 @@
-import { Observable, zip } from 'rxjs';
+import { Observable, zip, merge, forkJoin } from 'rxjs';
 
 const allProducts$ = new Observable<string>(subscriber => {
   console.log('Fetching products');
