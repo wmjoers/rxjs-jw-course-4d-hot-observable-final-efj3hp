@@ -1,10 +1,7 @@
 import { Observable } from 'rxjs';
 
 const observable$ = new Observable<string>(subscriber => {
-  subscriber.next('Pelle');
-  subscriber.next('Rasmus');
-  subscriber.next('Kiwi');
-  subscriber.complete();
+
 });
 
 const intervalId = setInterval(() => {
